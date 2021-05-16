@@ -19,6 +19,10 @@ let debris = {
 };
 var highscore = 0;
 
+let hs_store = JSON.stringify(highscore);
+localStorage.setItem("hs", hs_store);
+let hs_get = JSON.parse(localStorage.getItem("highscore"));
+
 
 alert("OBJECTIVE: Stack as many rectangles as you can!" + "  " +
        "To drop the rectangle, click the mouse");
@@ -34,7 +38,16 @@ alert("OBJECTIVE: Stack as many rectangles as you can!" + "  " +
 function animate() {
     if (mode != 'gameOver') {
         context.clearRect(0, 0, canvas.width, canvas.height);
-
+            
+        var score = current - 1;
+    
+        if (score > hs_store) {
+            hs_store = score;
+        }
+        
+        context.fillStyle = '#000000';
+        context.fillText('SCORE:' + score, 80, 540);
+        context.fillText('HIGHSCORE:' + hs_get, 520, 540);
         
         for (let n = 0; n < boxes.length; n++) {
             let box = boxes[n];
@@ -88,16 +101,8 @@ function animate() {
             scrollCounter--;
         }
     }
-    
-var score = current - 1;
-    
-if (score > highscore) {
-    highscore = score;
-}
 
-    context.fillStyle = '#000000';
-    context.fillText('SCORE:' + score, 80, 540);
-    context.fillText('HIGHSCORE:' + highscore, 520, 540);
+
 
 function gameOver() {
        mode = 'gameOver';

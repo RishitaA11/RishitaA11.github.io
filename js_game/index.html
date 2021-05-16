@@ -15,6 +15,22 @@
        <center> 
         <canvas id="gameScreen" width="800" height="560" ></canvas>
         <script src="script.js"></script>
+        <audio id="gameover">
+            <source src="gameover1.wav" />
+        </audio>
        </center> 
+
+       <script>
+           function loadDoc() {
+               var xhttp = new XMLHttpRequest();
+               xhttp.onreadystatechange = function() {
+                   if (this.readyState == 4 && this.status == 200) {
+                       document.getElementById("gameScreen").innerHTML = this.responseText;
+                   }
+               };
+               xhttp.open("GET", "script.js", true);
+               xhttp.send();
+           }
+        </script>
     </body>
 </html>
